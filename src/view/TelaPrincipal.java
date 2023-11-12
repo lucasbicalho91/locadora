@@ -40,7 +40,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("VideoLocadora Hora da Pipoca");
+        setTitle("Video Locadora Hora da Pipoca");
         setBackground(new java.awt.Color(240, 240, 240));
 
         jPanelTelaPrinicpal.setBackground(new java.awt.Color(153, 153, 153));
@@ -102,6 +102,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItemFilme.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jMenuItemFilme.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/seta.png"))); // NOI18N
         jMenuItemFilme.setText("Filme");
+        jMenuItemFilme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemFilmeActionPerformed(evt);
+            }
+        });
         jMenuCadastro.add(jMenuItemFilme);
 
         jMenuItemItem.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -131,7 +136,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jPanelTelaPrinicpal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(383, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         pack();
@@ -141,6 +146,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenuItemAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAlugarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemAlugarActionPerformed
+
+    private void jMenuItemFilmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFilmeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemFilmeActionPerformed
 
     /**
      * @param args the command line arguments

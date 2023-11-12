@@ -19,5 +19,5 @@ public class Cliente {
 	private String email;
 	private String endereco;
 	private Date dataNascimento;
-	private ArrayList<Item> itens = new ArrayList<Item>();
+	private ArrayList<Item> itens = new ArrayList<>();
 }

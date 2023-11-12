@@ -4,6 +4,10 @@
  */
 package view;
 
+import controller.FilmeController;
+import javax.swing.JOptionPane;
+import javax.swing.SpinnerNumberModel;
+
 /**
  *
  * @author Lucas
@@ -29,7 +33,7 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         jLabelTitulo = new javax.swing.JLabel();
         jPanelCadastroFilme = new javax.swing.JPanel();
         jLabelTituloFilme = new javax.swing.JLabel();
-        jTextFieldTituloFilme = new javax.swing.JTextField();
+        jTextFieldTitulo = new javax.swing.JTextField();
         jLabelGenero = new javax.swing.JLabel();
         jComboBoxGenero = new javax.swing.JComboBox<>();
         jLabelSinopse = new javax.swing.JLabel();
@@ -43,7 +47,6 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         jButtonConsultar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
         jLabelTitulo.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
@@ -57,8 +60,8 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         jLabelTituloFilme.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTituloFilme.setText("Título:");
 
-        jTextFieldTituloFilme.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        jTextFieldTituloFilme.setToolTipText("Informe o título do filme");
+        jTextFieldTitulo.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        jTextFieldTitulo.setToolTipText("Informe o título do filme");
 
         jLabelGenero.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelGenero.setForeground(new java.awt.Color(255, 255, 255));
@@ -89,14 +92,29 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         jButtonSalvar.setBackground(new java.awt.Color(240, 240, 240));
         jButtonSalvar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarFilme(evt);
+            }
+        });
 
         jButtonLimpar.setBackground(new java.awt.Color(240, 240, 240));
         jButtonLimpar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonLimpar.setText("Limpar");
+        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limparTelaCadastroFilme(evt);
+            }
+        });
 
         jButtonCancelar.setBackground(new java.awt.Color(240, 240, 240));
         jButtonCancelar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarCadastroFilme(evt);
+            }
+        });
 
         jButtonConsultar.setBackground(new java.awt.Color(240, 240, 240));
         jButtonConsultar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -126,7 +144,7 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonConsultar))
                             .addGroup(jPanelCadastroFilmeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextFieldTituloFilme)
+                                .addComponent(jTextFieldTitulo)
                                 .addComponent(jComboBoxGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
                             .addComponent(jSpinnerDuracao, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -138,7 +156,7 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(jPanelCadastroFilmeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTituloFilme)
-                    .addComponent(jTextFieldTituloFilme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(jPanelCadastroFilmeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelGenero)
@@ -185,6 +203,38 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void salvarFilme(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarFilme
+        int duracao = Integer.parseInt(jSpinnerDuracao.getValue().toString());
+        String genero = jComboBoxGenero.getSelectedItem().toString();
+        boolean sucesso = false;
+        
+        try {
+           FilmeController filmeController = new FilmeController();
+           filmeController.cadastrarFilme(jTextFieldTitulo.getText(), genero, 
+                   jTextAreaSinopse.getText(), duracao);
+           if(sucesso == true) {
+               JOptionPane.showMessageDialog(null, "O cadastro foi realizado com sucesso!");
+               this.limparTelaCadastroFilme(evt);
+           } else {
+               JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente");
+           }
+        } catch(Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro:" + ex);
+            
+        }
+    }//GEN-LAST:event_salvarFilme
+
+    private void limparTelaCadastroFilme(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparTelaCadastroFilme
+        jTextFieldTitulo.setText("");
+        jComboBoxGenero.setSelectedIndex(0);
+        jTextAreaSinopse.setText("");
+        jSpinnerDuracao.setModel(new SpinnerNumberModel(20, 20, 300, 10));
+    }//GEN-LAST:event_limparTelaCadastroFilme
+
+    private void cancelarCadastroFilme(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarCadastroFilme
+       this.dispose(); 
+    }//GEN-LAST:event_cancelarCadastroFilme
 
     /**
      * @param args the command line arguments
@@ -236,6 +286,6 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerDuracao;
     private javax.swing.JTextArea jTextAreaSinopse;
-    private javax.swing.JTextField jTextFieldTituloFilme;
+    private javax.swing.JTextField jTextFieldTitulo;
     // End of variables declaration//GEN-END:variables
 }
